@@ -1,12 +1,17 @@
 package com.merlinjobs.flexible.template.api.models;
 
 
-public class User extends com.merlinjobs.flexible.template.data.models.User {
+public class UserApi extends com.merlinjobs.flexible.template.data.models.User {
     private static final long serialVersionUID = 2396654715019746670L;
 
     private String token;
 
-    public User() {
+    public UserApi() {
+    }
+
+    public UserApi(String id, String username, String password, String token) {
+        super(id, username, password);
+        this.token = token;
     }
 
     public String getToken() {

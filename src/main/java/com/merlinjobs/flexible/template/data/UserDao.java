@@ -34,7 +34,7 @@ public class UserDao implements Dao<User>  {
     }
 
     /**
-     * @param user of User model
+     * @param user of UserApi model
      * @return user key with urlSafe format
      * Save given entity in DataStore and return the key in urlSafe format
      */
@@ -46,7 +46,7 @@ public class UserDao implements Dao<User>  {
 
 
     /**
-     * @param user of User model
+     * @param user of UserApi model
      * Save given entity in DataStore
      */
     @Override
@@ -56,7 +56,7 @@ public class UserDao implements Dao<User>  {
 
 
     /**
-     * @param user of User model
+     * @param user of UserApi model
      * Delete given entity in DataStore
      */
     @Override

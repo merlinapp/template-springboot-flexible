@@ -6,6 +6,9 @@ This sample shows how to run a [Spring Boot][spring-boot] application on [Google
 Cloud Platform][cloud-java]. It uses the [Google App Engine flexible
 environment][App Engine-flexible] and [Objectify 6][objectify-6].
 
+This template is a structural basis to start a REST API with authentication, 
+however, it requires finishing the entire authentication base. 
+
 [App Engine-flexible]: https://cloud.google.com/appengine/docs/flexible/
 [cloud-java]: https://cloud.google.com/java/
 [spring-boot]: http://projects.spring.io/spring-boot/
@@ -67,14 +70,35 @@ These settings should be revisited for production use.
 [app-yaml]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml
 [manual-scaling]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml#manual-scaling
 
-## Run the application locally (this repo is disable to run locally... coming soon)
-
+## Run the application locally 
 
 1. Set the correct Cloud SDK project via `gcloud config set project
    YOUR_PROJECT` to the ID of your application.
-1. Run `mvn spring-boot:run`
-1. Visit http://localhost:8080
 
+1. Run DataStore Emulator:
+
+- For install datastore emulator: 
+```
+gcloud components install cloud-datastore-emulator
+```
+
+- For start datastore emulator:
+```
+gcloud beta emulators datastore start --host-port=localhost:8081
+```
+
+1. Run `mvn spring-boot:run`
+1. Now you can consume the services with postman: 
+
+```
+POST: http://localhost:8080/public/users/register
+parms: USERNAME, PASSWORD 
+return: user id
+
+GET: http://localhost:8080/users/current
+Header Authorization Bearer: TOKEN
+
+```
 
 ## Deploy to App Engine flexible environment
 1. Set the correct Cloud SDK project via `gcloud config set project

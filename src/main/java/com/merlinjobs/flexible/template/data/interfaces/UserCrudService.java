@@ -6,7 +6,7 @@ import com.merlinjobs.flexible.template.data.models.User;
 import java.util.Optional;
 
 /**
- * User security operations like login and logout, and CRUD operations on {@link User}.
+ * UserApi security operations like login and logout, and CRUD operations on {@link User}.
  *
  * @author jerome
  *

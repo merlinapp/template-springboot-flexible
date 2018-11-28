@@ -6,6 +6,7 @@ import com.merlinjobs.flexible.template.api.interfaces.UserAuthenticationService
 import com.merlinjobs.flexible.template.auth.interfaces.TokenService;
 import com.merlinjobs.flexible.template.data.UserDao;
 import com.merlinjobs.flexible.template.data.interfaces.Dao;
+import com.merlinjobs.flexible.template.api.models.UserApi;
 import com.merlinjobs.flexible.template.data.models.User;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -13,7 +14,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
+import static java.util.Objects.requireNonNull;
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -24,30 +27,40 @@ public final class TokenAuthenticationService implements UserAuthenticationServi
     @NonNull
     TokenService tokens;
     @NonNull
-    static Dao userDao;
+    static Dao userDao = new UserDao();
 
     @Override
-    public Optional<com.merlinjobs.flexible.template.api.models.User> login(final String username, final String password) {
-        userDao = new UserDao();
-        User user = userDao.get(username);
-        com.merlinjobs.flexible.template.api.models.User apiUser = new com.merlinjobs.flexible.template.api.models.User();
-        apiUser.setProperties(user);
-        apiUser.setToken(tokens.expiring(ImmutableMap.of("username", username)));
-        return Optional.ofNullable(apiUser);
-    }
+    public Optional<UserApi> login(final String username, final String password) {
 
-    @Override
-    public Optional<User> findByToken(final String token) {
-
-//        return Optional
-//                .of(tokens.verify(token))
-//                .map(map -> map.get("username"))
-//                .flatMap(userDao::get());
         return Optional.empty();
     }
 
     @Override
-    public void logout(final User user) {
+    public Optional<UserApi> findByToken(final String token) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void logout(final UserApi user) {
         // Nothing to doy
+    }
+
+    @Override
+    public Optional<UserApi> register(String username, String password) {
+        requireNonNull(username);
+        requireNonNull(password);
+        String idUser = UUID.randomUUID().toString();
+        UserApi userApi = new UserApi();
+        String idWebSecure = userDao.save(new User(idUser, username, password));
+        userApi.setToken(tokens.expiring(ImmutableMap.of("username", idWebSecure)));
+        return Optional.ofNullable(userApi);
+    }
+
+    @Override
+    public Optional<UserApi> current(String idUser) {
+        UserApi userApi = new UserApi();
+        userApi.setProperties(userDao.get(idUser));
+        return Optional.ofNullable(userApi);
+
     }
 }
