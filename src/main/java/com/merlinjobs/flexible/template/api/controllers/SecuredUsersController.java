@@ -1,6 +1,5 @@
 package com.merlinjobs.flexible.template.api.controllers;
 
-import com.merlinjobs.flexible.template.data.UserDao;
 import com.merlinjobs.flexible.template.api.interfaces.UserAuthenticationService;
 import com.merlinjobs.flexible.template.api.models.UserApi;
 import com.merlinjobs.flexible.template.data.models.User;
