@@ -1,4 +1,6 @@
-# Spring Boot based Hello World app with objectify 6 in flexible environment app engine
+# Spring Boot with Spring Security 
+## Code base app with objectify 6 in gcp app engine flexible environment 
+## JWT authentication
 
 This sample shows how to run a [Spring Boot][spring-boot] application on [Google
 Cloud Platform][cloud-java]. It uses the [Google App Engine flexible
